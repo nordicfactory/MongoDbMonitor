@@ -1,0 +1,75 @@
+{
+  "AppSettings": {
+    "CollectionOptions": [
+      {
+        "Name": "DataAccount",
+        "AssemblyName": "AccountManagerDbCollectionMonitor",
+        "HandlerRequestFullQualifiedName": "AccountManagerDbCollectionMonitor.Commands.ProcessAccount.ProcessAccountEventRequest",
+        "OperationTypes": [ "insert", "update", "replace" ]
+      },
+      {
+        "Name": "DataAccountInfo",
+        "AssemblyName": "AccountManagerDbCollectionMonitor",
+        "HandlerRequestFullQualifiedName": "AccountManagerDbCollectionMonitor.Commands.ProcessAccountInfo.ProcessAccountInfoEventRequest",
+        "OperationTypes": [ "insert", "update", "replace" ]
+      },
+      {
+        "Name": "BF_Brand",
+        "AssemblyName": "BannerflowDbCollectionMonitor",
+        "HandlerRequestFullQualifiedName": "BannerflowDbCollectionMonitor.Commands.ProcessBrand.ProcessBrandEventRequest",
+        "OperationTypes": [ "insert", "update", "replace" ]
+      },
+      {
+        "Name": "BF_Localization",
+        "AssemblyName": "BannerflowDbCollectionMonitor",
+        "HandlerRequestFullQualifiedName": "BannerflowDbCollectionMonitor.Commands.ProcessLocalization.ProcessLocalizationEventRequest",
+        "OperationTypes": [ "insert", "update", "replace" ]
+      },
+      {
+        "Name": "BF_SizeFormat",
+        "AssemblyName": "BannerflowDbCollectionMonitor",
+        "HandlerRequestFullQualifiedName": "BannerflowDbCollectionMonitor.Commands.ProcessSizeFormat.ProcessSizeFormatEventRequest",
+        "OperationTypes": [ "insert", "update", "replace" ]
+      },
+      {
+        "Name": "BF_Folder",
+        "AssemblyName": "BannerflowDbCollectionMonitor",
+        "HandlerRequestFullQualifiedName": "BannerflowDbCollectionMonitor.Commands.ProcessFolder.ProcessFolderEventRequest",
+        "OperationTypes": [ "insert", "update", "replace" ]
+      },
+      {
+        "Name": "BF_Feed",
+        "AssemblyName": "BannerflowDbCollectionMonitor",
+        "HandlerRequestFullQualifiedName": "BannerflowDbCollectionMonitor.Commands.ProcessFeed.ProcessFeedEventRequest",
+        "OperationTypes": [ "insert", "update", "replace" ]
+      },
+      {
+        "Name": "Test",
+        "AssemblyName": "BannerflowDbCollectionMonitor",
+        "HandlerRequestFullQualifiedName": "BannerflowDbCollectionMonitor.Commands.ProcessFeed.DosNotExistEventRequest",
+        "OperationTypes": [ "insert", "update", "replace" ]
+      },
+      {
+        "Name": "Test2",
+        "AssemblyName": "MongoDbMonitor.Test",
+        "HandlerRequestFullQualifiedName": "MongoDbMonitor.Test.Data.InvalidRequest",
+        "OperationTypes": [ "insert", "update", "replace" ]
+      }
+    ],
+
+    "RetryProviderOptions": {
+      "JitterMaximum": 100,
+      "Delays": [ 50, 100, 200, 350, 500 ]
+    },
+
+    "StudioApiClientOptions": {
+      "TimeoutInSeconds": 5,
+      "ClearCacheWebhook": "http://studio.local/api/webhook/incoming/cache/clear"
+    },
+
+    "SlackApiClientOptions": {
+      "TimeoutInSeconds": 5,
+      "ChannelWebhookUrl": "https://hooks.slack.com/services/xxx"
+    }
+  }
+}
