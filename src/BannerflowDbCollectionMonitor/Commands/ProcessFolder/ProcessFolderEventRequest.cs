@@ -7,6 +7,6 @@ namespace BannerflowDbCollectionMonitor.Commands.ProcessFolder
     {
         public override StudioCacheType CacheType => StudioCacheType.Folder;
 
-        public override string PropertyNameToBeExtracted => "brand";
+        public override string PropertyNameToBeExtracted => "_id";
     }
 }
