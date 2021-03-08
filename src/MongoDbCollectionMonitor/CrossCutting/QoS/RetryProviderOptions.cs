@@ -2,7 +2,7 @@
 
 namespace MongoDbCollectionMonitor.CrossCutting.QoS
 {
-    public class RetryProviderOptions
+    internal class RetryProviderOptions
     {
         public int JitterMaximum { get; set; }
 

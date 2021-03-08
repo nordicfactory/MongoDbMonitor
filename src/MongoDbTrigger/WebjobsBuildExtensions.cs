@@ -17,7 +17,16 @@ namespace MongoDbTrigger
         {
             _ = builder ?? throw new ArgumentNullException(nameof(builder));
 
-            builder.Services
+            ConfigureMongoDbTrigger(builder.Services);
+
+            builder.AddExtension<MongoDbTriggerExtensionsConfigProvider>();
+
+            return builder;
+        }
+
+        internal static IServiceCollection ConfigureMongoDbTrigger(IServiceCollection services)
+        {
+            services
                 .AddOptions<MongoDbTriggerOptions>()
                 .Configure<IConfiguration>((settings, configuration) =>
                 {
@@ -28,7 +37,9 @@ namespace MongoDbTrigger
 
                     while (true)
                     {
-                        var collectionName = configuration.GetSection("AzureFunctionsJobHost:AppSettings:CollectionOptions").GetSection($"{index}:Name").Get<string>();
+                        var collectionName = configuration
+                            .GetSection("AzureFunctionsJobHost:AppSettings:CollectionOptions")
+                            .GetSection($"{index}:Name").Get<string>();
 
                         if (string.IsNullOrWhiteSpace(collectionName))
                             break;
@@ -41,11 +52,9 @@ namespace MongoDbTrigger
                     configuration.Bind(settings);
                 });
 
-            builder.Services.AddSingleton<MongoDbCollectionFactory>();
+                services.AddSingleton<MongoDbCollectionFactory>();
 
-            builder.AddExtension<MongoDbTriggerExtensionsConfigProvider>();
-
-            return builder;
+                return services;
         }
     }
 }

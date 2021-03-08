@@ -109,5 +109,22 @@ namespace MongoDbMonitor.Test
             Assert.False(response.IsSuccessfull);
             Assert.Equal(ProcessingStep.ExtractDocumentIdentifier, response.FinalStep);
         }
+
+        [Fact]
+        public async Task Should_Return_ProcessMongoEvent_ProcessingStep_For_Not_Configured_Operation()
+        {
+            await using var provider = Services.Value.BuildServiceProvider(true);
+
+            var runner = provider.GetRequiredService<MonitorRunner>();
+
+            var response = await runner.Run(
+                "BF_Brand",
+                "drop",
+                new Dictionary<string, object> { ["_id"] = 1 },
+                CancellationToken.None);
+
+            Assert.False(response.IsSuccessfull);
+            Assert.Equal(ProcessingStep.ProcessMongoEvent, response.FinalStep);
+        }
     }
 }

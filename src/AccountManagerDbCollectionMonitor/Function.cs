@@ -19,8 +19,7 @@ namespace AccountManagerDbCollectionMonitor
         }
 
         [FunctionName("AccountManagerDbCollectionMonitor")]
-        public async Task Run(
-            [MongoDbTrigger] ChangeStreamDocument<dynamic> document)
+        public async Task Run([MongoDbTrigger] ChangeStreamDocument<dynamic> document)
         {
             await _runner.Run(
                 document.CollectionNamespace.CollectionName,

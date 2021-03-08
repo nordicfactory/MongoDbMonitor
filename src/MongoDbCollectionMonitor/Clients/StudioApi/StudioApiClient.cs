@@ -11,12 +11,12 @@ using MongoDbCollectionMonitor.CrossCutting.QoS;
 
 namespace MongoDbCollectionMonitor.Clients.StudioApi
 {
-    public interface IStudioApiClient
+    internal interface IStudioApiClient
     {
         Task NotifyStudio(StudioCacheType cacheType, ObjectId id, CancellationToken cancellation);
     }
 
-    public class StudioApiClient : IStudioApiClient
+    internal class StudioApiClient : IStudioApiClient
     {
         private static readonly Func<HttpResponseMessage, bool> TransientHttpStatusCodePredicate =
             delegate (HttpResponseMessage response)
@@ -34,18 +34,19 @@ namespace MongoDbCollectionMonitor.Clients.StudioApi
 
         private readonly IRetryProvider _retrier;
         private readonly HttpClient _client;
-        private readonly StudioApiClientOptions _options;
+
+        internal StudioApiClientOptions Options { get; }
 
         public StudioApiClient(IOptions<StudioApiClientOptions> options, HttpClient client, IRetryProvider retrier)
         {
-            _options = options.Value;
+            Options = options.Value;
             _client = client;
             _retrier = retrier;
         }
 
         public async Task NotifyStudio(StudioCacheType cacheType, ObjectId id, CancellationToken cancellation)
         {
-            using var timeoutSource = new CancellationTokenSource(TimeSpan.FromSeconds(_options.TimeoutInSeconds * 2));
+            using var timeoutSource = new CancellationTokenSource(TimeSpan.FromSeconds(Options.TimeoutInSeconds * 2));
             using var linkedSource = CancellationTokenSource.CreateLinkedTokenSource(timeoutSource.Token, cancellation);
 
             var response =
@@ -53,7 +54,7 @@ namespace MongoDbCollectionMonitor.Clients.StudioApi
                     .RetryOn<HttpRequestException, HttpResponseMessage>(
                         CheckError,
                         TransientHttpStatusCodePredicate,
-                        () => SendRequest(_client, cacheType, id, _options, linkedSource.Token));
+                        () => SendRequest(_client, cacheType, id, Options, linkedSource.Token));
 
             if (!response.IsSuccessStatusCode)
                 ThrowHttpRequestException(response);

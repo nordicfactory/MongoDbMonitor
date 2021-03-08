@@ -6,7 +6,7 @@ using Polly;
 
 namespace MongoDbCollectionMonitor.CrossCutting.QoS
 {
-    public interface IRetryProvider
+    internal interface IRetryProvider
     {
         Task<TResult> RetryOn<TException, TResult>(
             Func<TException, bool> exceptionPredicate,
@@ -15,7 +15,7 @@ namespace MongoDbCollectionMonitor.CrossCutting.QoS
             where TException : Exception;
     }
 
-    public class RetryProvider : IRetryProvider
+    internal class RetryProvider : IRetryProvider
     {
         private const string RetryAttemptLogMessage = "Retry attempt: {0}";
 
@@ -26,12 +26,13 @@ namespace MongoDbCollectionMonitor.CrossCutting.QoS
             return jitter;
         };
 
-        private readonly RetryProviderOptions _options;
         private readonly ILogger _logger;
+
+        internal RetryProviderOptions Options { get; }
 
         public RetryProvider(IOptionsMonitor<RetryProviderOptions> options, ILogger<RetryProvider> logger)
         {
-            _options = options?.CurrentValue ?? throw new ArgumentNullException(nameof(options));
+            Options = options?.CurrentValue ?? throw new ArgumentNullException(nameof(options));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -46,12 +47,12 @@ namespace MongoDbCollectionMonitor.CrossCutting.QoS
                     .Handle<TException>(exceptionPredicate)
                     .OrResult(resultPredicate)
                     .WaitAndRetryAsync(
-                        _options.Delays.Count,
+                        Options.Delays.Count,
                         i =>
                             {
                                 _logger.LogInformation(RetryAttemptLogMessage, new object[1] { i });
 
-                                var delay = _options.Delays[i - 1] + CalculateJitter(_options.JitterMaximum);
+                                var delay = Options.Delays[i - 1] + CalculateJitter(Options.JitterMaximum);
 
                                 return TimeSpan.FromMilliseconds(delay);
                             })

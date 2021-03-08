@@ -7,17 +7,20 @@ namespace MongoDbTrigger.DataAccess
 {
     internal class MongoDbCollectionFactory
     {
-        private static readonly Func<MongoDbTriggerOptions, IMongoClient> GetClient = delegate (MongoDbTriggerOptions options)
+        private static readonly Func<MongoDbTriggerOptions, IMongoClient> GetClient = 
+            delegate (MongoDbTriggerOptions options)
         {
             return new MongoClient(options.ConnectionString);
         };
 
-        private static readonly Func<MongoDbTriggerOptions, IMongoDatabase> GetDatabase = delegate (MongoDbTriggerOptions options)
+        private static readonly Func<MongoDbTriggerOptions, IMongoDatabase> GetDatabase = 
+            delegate (MongoDbTriggerOptions options)
         {
             return GetClient(options).GetDatabase(options.Database);
         };
 
-        private static readonly Func<MongoDbTriggerOptions, IEnumerable<IMongoCollection<dynamic>>> GetColections = delegate (MongoDbTriggerOptions options)
+        private static readonly Func<MongoDbTriggerOptions, IEnumerable<IMongoCollection<dynamic>>> GetColections = 
+            delegate (MongoDbTriggerOptions options)
         {
             var collections = new List<IMongoCollection<dynamic>>();
 
@@ -29,16 +32,16 @@ namespace MongoDbTrigger.DataAccess
             return collections;
         };
 
-        private readonly MongoDbTriggerOptions _options;
+        internal MongoDbTriggerOptions Options { get; }
 
         public MongoDbCollectionFactory(IOptions<MongoDbTriggerOptions> options)
         {
-            _options = options.Value;
+            Options = options.Value;
         }
 
         public IEnumerable<IMongoCollection<dynamic>> GetMongoCollection()
         {
-            var collections = GetColections(_options);
+            var collections = GetColections(Options);
 
             return collections;
         }

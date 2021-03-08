@@ -1,8 +1,10 @@
-﻿namespace MongoDbCollectionMonitor.Clients.SlackApi
+﻿using System;
+
+namespace MongoDbCollectionMonitor.Clients.SlackApi
 {
-    public class SlackApiClientOptions
+    internal class SlackApiClientOptions
     {
-        public string ChannelWebhookUrl { get; set; }
+        public Uri ChannelWebhookUrl { get; set; }
 
         public int TimeoutInSeconds { get; set; }
 

@@ -9,12 +9,12 @@ using MongoDbCollectionMonitor.CrossCutting.QoS;
 
 namespace MongoDbCollectionMonitor.Clients.SlackApi
 {
-    public interface ISlackApiClient
+    internal interface ISlackApiClient
     {
         Task Send(string payload, CancellationToken cancellation);
     }
 
-    public class SlackApiClient : ISlackApiClient
+    internal class SlackApiClient : ISlackApiClient
     {
         private static readonly Func<HttpResponseMessage, bool> TransientHttpStatusCodePredicate =
             delegate (HttpResponseMessage response)
@@ -32,18 +32,19 @@ namespace MongoDbCollectionMonitor.Clients.SlackApi
 
         private readonly IRetryProvider _retrier;
         private readonly HttpClient _client;
-        private readonly SlackApiClientOptions _options;
+
+        internal SlackApiClientOptions Options { get; }
 
         public SlackApiClient(IOptions<SlackApiClientOptions> options, HttpClient client, IRetryProvider retrier)
         {
-            _options = options.Value;
+            Options = options.Value;
             _client = client;
             _retrier = retrier;
         }
 
         public async Task Send(string payload, CancellationToken cancellation)
         {
-            using var timeoutSource = new CancellationTokenSource(TimeSpan.FromSeconds(_options.TimeoutInSeconds));
+            using var timeoutSource = new CancellationTokenSource(TimeSpan.FromSeconds(Options.TimeoutInSeconds));
             using var linkedSource = CancellationTokenSource.CreateLinkedTokenSource(timeoutSource.Token, cancellation);
 
 
@@ -51,7 +52,7 @@ namespace MongoDbCollectionMonitor.Clients.SlackApi
                 _retrier.RetryOn<HttpRequestException, HttpResponseMessage>(
                     CheckError,
                     TransientHttpStatusCodePredicate,
-                    () => SendRequest(_client, _options, payload, linkedSource.Token));
+                    () => SendRequest(_client, Options, payload, linkedSource.Token));
         }
 
 
@@ -74,7 +75,7 @@ namespace MongoDbCollectionMonitor.Clients.SlackApi
             string payload,
             CancellationToken cancellation)
         {
-            var request = CreatePostMessage(new Uri(options.ChannelWebhookUrl), payload);
+            var request = CreatePostMessage(options.ChannelWebhookUrl, payload);
 
             var response = await client.SendAsync(request, cancellation);
 

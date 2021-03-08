@@ -1,0 +1,54 @@
+{
+  "version": "2.0",
+  "logging": {
+    "logLevel": {
+      "AccountManagerDbCollectionMonitor": "Debug",
+      "MongoDbCollectionMonitor": "Debug",
+      "MongoDbTrigger": "Debug",
+      "MediatR": "Debug"
+    },
+    "applicationInsights": {
+      "samplingExcludedTypes": "Request",
+      "samplingSettings": {
+        "isEnabled": true
+      }
+    }
+  },
+
+  "AzureFunctionsJobHost": {
+    "AppSettings": {
+      "Database": "test-db",
+      "ConnectionString": "mongodb://mongodb:27017",
+      "CollectionOptions": [
+        {
+          "Name": "Test",
+          "AssemblyName": "BannerflowDbCollectionMonitor",
+          "HandlerRequestFullQualifiedName":
+            "BannerflowDbCollectionMonitor.Commands.ProcessFeed.DosNotExistEventRequest",
+          "OperationTypes": ["insert", "update", "replace"]
+        },
+        {
+          "Name": "Test2",
+          "AssemblyName": "MongoDbMonitor.Test",
+          "HandlerRequestFullQualifiedName": "MongoDbMonitor.Test.Data.InvalidRequest",
+          "OperationTypes": ["insert", "update", "replace"]
+        }
+      ],
+
+      "RetryProviderOptions": {
+        "JitterMaximum": 100,
+        "Delays": [50, 100, 200]
+      },
+
+      "StudioApiClientOptions": {
+        "TimeoutInSeconds": 5,
+        "ClearCacheWebhook": "http://studio.local/api/webhook/incoming/cache/clear"
+      },
+
+      "SlackApiClientOptions": {
+        "TimeoutInSeconds": 5,
+        "ChannelWebhookUrl": "https://hooks.slack.com/services/xxx"
+      }
+    }
+  }
+}
