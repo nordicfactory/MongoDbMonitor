@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDbCollectionMonitor;
 using MongoDbCollectionMonitor.Commands.Common.Responses;
+using MongoDbCollectionMonitor.Commands.ExtractDocumentIdentifier;
+using MongoDbMonitor.Test.Data.MonitorRunner;
 using Xunit;
 
 namespace MongoDbMonitor.Test
@@ -15,14 +17,8 @@ namespace MongoDbMonitor.Test
         private static readonly Lazy<IServiceCollection> Services = new Lazy<IServiceCollection>(() => TestServiceFactory.RegisterServices(true), true);
 
         [Theory]
-        [InlineData("DataAccount", "_id")]
-        [InlineData("DataAccountInfo", "accountId")]
-        [InlineData("BF_Brand", "_id")]
-        [InlineData("BF_Localization", "brandId")]
-        [InlineData("BF_SizeFormat", "brandId")]
-        [InlineData("BF_Folder", "_id")]
-        [InlineData("BF_Feed", "_id")]
-        public async Task Should_Return_SlackAlertSend_ProcessingStep(string collectionName, string requiredProperty)
+        [ClassData(typeof(GetCollectionAndRequestDataClass))]
+        public async Task Should_Return_SlackAlertSend_ProcessingStep(string collectionName, ExtractDocumentIdentifierRequest request)
         {
             await using var provider = Services.Value.BuildServiceProvider(true);
 
@@ -33,7 +29,7 @@ namespace MongoDbMonitor.Test
                 "update",
                 new Dictionary<string, object>
                 {
-                    [requiredProperty] = ObjectId.GenerateNewId(),
+                    [request.PropertyNameToBeExtracted] = ObjectId.GenerateNewId(),
                     ["name"] = "My brand",
                     ["accountId"] = ObjectId.GenerateNewId()
                 },

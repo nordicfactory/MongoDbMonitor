@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDbCollectionMonitor;
-using MongoDbMonitor.Test.Data;
+using MongoDbMonitor.Test.Data.MonitorRunner;
 using Xunit;
 
 namespace MongoDbMonitor.Test
@@ -39,7 +39,7 @@ namespace MongoDbMonitor.Test
         }
 
         [Theory]
-        [ClassData(typeof(ValuesDataClass))]
+        [ClassData(typeof(GetValuesDataClass))]
         public async Task Should_Throw_ArgumentNullException_For_Values(IDictionary<string, object> values)
         {
             await

@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace MongoDbMonitor.Test.Data
+namespace MongoDbMonitor.Test.Data.MonitorRunner
 {
-    internal class ValuesDataClass : IEnumerable<object[]>
+    internal class GetValuesDataClass : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {
@@ -13,5 +13,4 @@ namespace MongoDbMonitor.Test.Data
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
-
 }

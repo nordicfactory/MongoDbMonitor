@@ -2,20 +2,15 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using AccountManagerDbCollectionMonitor.Commands.ProcessAccount;
-using AccountManagerDbCollectionMonitor.Commands.ProcessAccountInfo;
-using BannerflowDbCollectionMonitor.Commands.ProcessBrand;
-using BannerflowDbCollectionMonitor.Commands.ProcessFeed;
-using BannerflowDbCollectionMonitor.Commands.ProcessFolder;
-using BannerflowDbCollectionMonitor.Commands.ProcessLocalization;
-using BannerflowDbCollectionMonitor.Commands.ProcessSizeFormat;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDbCollectionMonitor;
 using MongoDbCollectionMonitor.Commands.Common.Responses;
+using MongoDbCollectionMonitor.Commands.ExtractDocumentIdentifier;
 using MongoDbCollectionMonitor.Commands.NotifyStudio;
 using MongoDbCollectionMonitor.Commands.ProcessMongoEvent;
 using MongoDbCollectionMonitor.Commands.ResolveCollectionType;
+using MongoDbMonitor.Test.Data.MonitorRunner;
 using Xunit;
 
 namespace MongoDbMonitor.Test
@@ -25,14 +20,8 @@ namespace MongoDbMonitor.Test
         private static readonly Lazy<IServiceCollection> Services = new Lazy<IServiceCollection>(() => TestServiceFactory.RegisterServices(true, true), true);
 
         [Theory]
-        [InlineData("DataAccount", "_id", nameof(ProcessAccountEventRequest))]
-        [InlineData("DataAccountInfo", "accountId", nameof(ProcessAccountInfoEventRequest))]
-        [InlineData("BF_Brand", "_id", nameof(ProcessBrandEventRequest))]
-        [InlineData("BF_Localization", "brandId", nameof(ProcessLocalizationEventRequest))]
-        [InlineData("BF_SizeFormat", "brandId", nameof(ProcessSizeFormatEventRequest))]
-        [InlineData("BF_Folder", "_id", nameof(ProcessFolderEventRequest))]
-        [InlineData("BF_Feed", "_id", nameof(ProcessFeedEventRequest))]
-        public async Task Shoud_Return_NotifyStudio_ProcessingStep(string collectionName, string requiredProperty, string requestName)
+        [ClassData(typeof(GetCollectionAndRequestDataClass))]
+        public async Task Shoud_Return_NotifyStudio_ProcessingStep(string collectionName, ExtractDocumentIdentifierRequest request)
         {
             await using var provider = Services.Value.BuildServiceProvider();
 
@@ -42,7 +31,7 @@ namespace MongoDbMonitor.Test
                 "update",
                 new Dictionary<string, object>
                 {
-                    [requiredProperty] = ObjectId.GenerateNewId(),
+                    [request.PropertyNameToBeExtracted] = ObjectId.GenerateNewId(),
                     ["name"] = "My brand",
                     ["accountId"] = ObjectId.GenerateNewId()
                 },
@@ -53,7 +42,7 @@ namespace MongoDbMonitor.Test
             Assert.Equal(4, response.Perf.Count);
             Assert.True(response.Perf.TryGetValue(nameof(ProcessMongoEventRequest), out _));
             Assert.True(response.Perf.TryGetValue(nameof(ResolveCollectionTypeRequest), out _));
-            Assert.True(response.Perf.TryGetValue(requestName, out _));
+            Assert.True(response.Perf.TryGetValue(request.GetType().Name, out _));
             Assert.True(response.Perf.TryGetValue(nameof(NotifyStudioRequest), out _));
         }
     }
