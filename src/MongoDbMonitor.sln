@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagerDbCollectionM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDbMonitor.Test", "MongoDbFunctionMonitor.Test\MongoDbMonitor.Test.csproj", "{F6DA92B7-94D6-4617-8551-7A64EB61834E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementations", "Implementations", "{C9CC25E6-A612-40A8-86F9-E41C675A6B60}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Monitors", "Monitors", "{C9CC25E6-A612-40A8-86F9-E41C675A6B60}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{F9AE81C7-B1D6-4F66-8693-D05C6AF458CD}"
 EndProject

@@ -16,6 +16,8 @@
   },
 
   "AppSettings": {
+    "Database": "accounts_sandbox",
+    "ConnectionString": "mongodb+srv://mirza_rw:E6JzWe98IAnyhKTB@cluster0.ubk1r.azure.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true",
     "CollectionOptions": [
       {
         "Name": "DataAccount",

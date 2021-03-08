@@ -20,7 +20,7 @@ namespace MongoDbMonitor.Test
         [InlineData("BF_Brand", "_id")]
         [InlineData("BF_Localization", "brandId")]
         [InlineData("BF_SizeFormat", "brandId")]
-        [InlineData("BF_Folder", "brand")]
+        [InlineData("BF_Folder", "_id")]
         [InlineData("BF_Feed", "_id")]
         public async Task Should_Throw_NotifyStudioFailedException(string collectionName, string requiredProperty)
         {

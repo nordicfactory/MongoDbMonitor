@@ -10,6 +10,7 @@ namespace BannerflowDbCollectionMonitor
     // https://github.com/Azure/azure-functions-core-tools/issues/2294 - blocked upgrade to .net 5
     public class Function
     {
+        private readonly CancellationTokenSource _source = new CancellationTokenSource();
         private readonly MonitorRunner _runner;
 
         public Function(MonitorRunner runner)
@@ -18,19 +19,13 @@ namespace BannerflowDbCollectionMonitor
         }
 
         [FunctionName("BannerflowDbCollectionMonitor")]
-        public async Task Run(
-            [MongoDbTrigger(
-                "bannerflow_sandbox",
-                new[] { CollectionNames.Feeds, CollectionNames.Brands, CollectionNames.Folders, CollectionNames.Localizations, CollectionNames.SizeFormats },
-                ConnectionString = "%Connection")]
-            ChangeStreamDocument<dynamic> document,
-            CancellationToken cancellation)
+        public async Task Run([MongoDbTrigger] ChangeStreamDocument<dynamic> document)
         {
             await _runner.Run(
                 document.CollectionNamespace.CollectionName,
                 document.OperationType.ToString(),
                 document.FullDocument,
-                cancellation);
+                _source.Token);
         }
     }
 }

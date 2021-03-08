@@ -30,7 +30,7 @@ namespace MongoDbMonitor.Test
         [InlineData("BF_Brand", "_id", nameof(ProcessBrandEventRequest))]
         [InlineData("BF_Localization", "brandId", nameof(ProcessLocalizationEventRequest))]
         [InlineData("BF_SizeFormat", "brandId", nameof(ProcessSizeFormatEventRequest))]
-        [InlineData("BF_Folder", "brand", nameof(ProcessFolderEventRequest))]
+        [InlineData("BF_Folder", "_id", nameof(ProcessFolderEventRequest))]
         [InlineData("BF_Feed", "_id", nameof(ProcessFeedEventRequest))]
         public async Task Shoud_Return_NotifyStudio_ProcessingStep(string collectionName, string requiredProperty, string requestName)
         {
