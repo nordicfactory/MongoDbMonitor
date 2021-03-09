@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDbTrigger", "MongoDbTrigger\MongoDbTrigger.csproj", "{4708416E-B2AC-4B4F-9310-5697AE5EF431}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDbCollectionMonitor", "MongoDbCollectionMonitor\MongoDbCollectionMonitor.csproj", "{097E0A7F-0073-41ED-98DE-DB658DDE9F5E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BannerflowDbCollectionMonitor", "BannerflowDbCollectionMonitor\BannerflowDbCollectionMonitor.csproj", "{C435C992-E9D4-438A-BC44-B4FBEAC9A756}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{222139FB-1F94-41A6-952E-274595FED22E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagerDbCollectionMonitor", "AccountManagerDbCollectionMonitor\AccountManagerDbCollectionMonitor.csproj", "{A343792A-2E5F-4ADD-9789-EAA28ACE8F9F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDbMonitor.Test", "MongoDbFunctionMonitor.Test\MongoDbMonitor.Test.csproj", "{F6DA92B7-94D6-4617-8551-7A64EB61834E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Monitors", "Monitors", "{C9CC25E6-A612-40A8-86F9-E41C675A6B60}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{F9AE81C7-B1D6-4F66-8693-D05C6AF458CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4708416E-B2AC-4B4F-9310-5697AE5EF431}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4708416E-B2AC-4B4F-9310-5697AE5EF431}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4708416E-B2AC-4B4F-9310-5697AE5EF431}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4708416E-B2AC-4B4F-9310-5697AE5EF431}.Release|Any CPU.Build.0 = Release|Any CPU
+		{097E0A7F-0073-41ED-98DE-DB658DDE9F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{097E0A7F-0073-41ED-98DE-DB658DDE9F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{097E0A7F-0073-41ED-98DE-DB658DDE9F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{097E0A7F-0073-41ED-98DE-DB658DDE9F5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C435C992-E9D4-438A-BC44-B4FBEAC9A756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C435C992-E9D4-438A-BC44-B4FBEAC9A756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C435C992-E9D4-438A-BC44-B4FBEAC9A756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C435C992-E9D4-438A-BC44-B4FBEAC9A756}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A343792A-2E5F-4ADD-9789-EAA28ACE8F9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A343792A-2E5F-4ADD-9789-EAA28ACE8F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A343792A-2E5F-4ADD-9789-EAA28ACE8F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A343792A-2E5F-4ADD-9789-EAA28ACE8F9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6DA92B7-94D6-4617-8551-7A64EB61834E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6DA92B7-94D6-4617-8551-7A64EB61834E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6DA92B7-94D6-4617-8551-7A64EB61834E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6DA92B7-94D6-4617-8551-7A64EB61834E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4708416E-B2AC-4B4F-9310-5697AE5EF431} = {F9AE81C7-B1D6-4F66-8693-D05C6AF458CD}
+		{097E0A7F-0073-41ED-98DE-DB658DDE9F5E} = {F9AE81C7-B1D6-4F66-8693-D05C6AF458CD}
+		{C435C992-E9D4-438A-BC44-B4FBEAC9A756} = {C9CC25E6-A612-40A8-86F9-E41C675A6B60}
+		{A343792A-2E5F-4ADD-9789-EAA28ACE8F9F} = {C9CC25E6-A612-40A8-86F9-E41C675A6B60}
+		{F6DA92B7-94D6-4617-8551-7A64EB61834E} = {222139FB-1F94-41A6-952E-274595FED22E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {016A13A7-0BA2-4BE0-AB7D-807E25278235}
+	EndGlobalSection
+EndGlobal

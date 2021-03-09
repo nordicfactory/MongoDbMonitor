@@ -1,0 +1,51 @@
+{
+  "version": "2.0",
+  "logging": {
+    "logLevel": {
+      "AccountManagerDbCollectionMonitor": "Debug",
+      "MongoDbCollectionMonitor": "Debug",
+      "MongoDbTrigger": "Debug",
+      "MediatR": "Debug"
+    },
+    "applicationInsights": {
+      "samplingExcludedTypes": "Request",
+      "samplingSettings": {
+        "isEnabled": true
+      }
+    }
+  },
+
+  "AppSettings": {
+    "Database": "accounts_sandbox",
+    "ConnectionString": "mongodb+srv://mirza_rw:E6JzWe98IAnyhKTB@cluster0.ubk1r.azure.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true",
+    "CollectionOptions": [
+      {
+        "Name": "DataAccount",
+        "AssemblyName": "AccountManagerDbCollectionMonitor",
+        "HandlerRequestFullQualifiedName": "AccountManagerDbCollectionMonitor.Commands.ProcessAccount.ProcessAccountEventRequest",
+        "OperationTypes": [ "insert", "update", "replace" ]
+      },
+      {
+        "Name": "DataAccountInfo",
+        "AssemblyName": "AccountManagerDbCollectionMonitor",
+        "HandlerRequestFullQualifiedName": "AccountManagerDbCollectionMonitor.Commands.ProcessAccountInfo.ProcessAccountInfoEventRequest",
+        "OperationTypes": [ "insert", "update", "replace" ]
+      }
+    ],
+
+    "RetryProviderOptions": {
+      "JitterMaximum": 100,
+      "Delays": [ 50, 100, 200, 350, 500 ]
+    },
+
+    "StudioApiClientOptions": {
+      "TimeoutInSeconds": 5,
+      "ClearCacheWebhook": "http://studio.local/api/webhook/incoming/cache/clear"
+    },
+
+    "SlackApiClientOptions": {
+      "TimeoutInSeconds": 5,
+      "ChannelWebhookUrl": "https://hooks.slack.com/services/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"
+    }
+  }
+}
